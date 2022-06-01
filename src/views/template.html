@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        <%= htmlWebpackPlugin.options.title %>
+    </title>
+</head>
+
+<body>
+    <div class="container">
+        <main>
+            <h1>Travel Planner</h1>
+
+            <section class="destination">
+                <form action="">
+                    <label for="city">Enter Destination</label>
+                    <input type="text" id="city-name" placeholder="Enter City" required>
+                    </br>
+
+                    <label for="date">Departure Date</label>
+                    <input type="date" name="date" id="departure-date" min="2021-09-01" required>
+                    </br>
+                    <label for="date">Arrival Date</label>
+                    <input type="date" name="date" id="arrival-date" min="2021-09-01" required>
+                    </br>
+                    <button type="submit">Submit</button>
+                </form>
+            </section>
+
+            <section class="results">
+                <h2>Destination Details</h2>
+                <p id="destination-city">My trip: Chicago, IL</p>
+                <p id="trip-dates">From: 1/1/2222 - 1/1/2222</p>
+                <p id="forecast">Current Forecast: ⛅️ 75°F</p>
+            </section>
+
+            <section>
+                <figure>
+                    <img id="chicagoView" alt="High view of the Chicago skyline">
+                    <figcaption>Chicago Skyline</figcaption>
+                </figure>
+            </section>
+        </main>
+    </div>
+</body>
+</html>
