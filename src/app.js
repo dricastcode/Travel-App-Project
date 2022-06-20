@@ -1,2 +1,21 @@
 //Testing commit to GitHub
-alert("Welcome! This page is a capstone project through Udacity's Front End Developer course. Enter your destination to see projected weather and a view of your city")
+
+const userForm = document.querySelector('.user-form')
+const cityName = document.getElementById('city-name')
+const departure = document.getElementById('departure-date')
+const arrival = document.getElementById('arrival-date')
+
+const msg = document.getElementById('msg')
+
+userForm.addEventListener('submit', onSubmit)
+
+function onSubmit(e) {
+    e.preventDefault()
+
+    if(cityName.value === '' || departure.value === '' || arrival === '') {
+        // msg.classList.add('fields')
+        msg.innerHTML = 'Please enter all fields'
+    } else {
+        console.log('success');
+    }
+}
