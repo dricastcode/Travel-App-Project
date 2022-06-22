@@ -13,9 +13,21 @@ function onSubmit(e) {
     e.preventDefault()
 
     if(cityName.value === '' || departure.value === '' || arrival === '') {
-        // msg.classList.add('fields')
         msg.innerHTML = 'Please enter all fields'
+        setTimeout(() => msg.remove(), 2000)
+        clearTimeout(onSubmit)
     } else {
-        console.log('success');
+        const destination = document.getElementById('destination-city')
+        const tripDates = document.getElementById('trip-dates')
+
+        destination.innerHTML = `My trip: ${cityName.value}`
+        tripDates.innerHTML = `From: ${departure.value} - ${arrival.value}`
+
+        cityName.value = ''
+        departure.value = ''
+        arrival.value = ''
+        
+        
+        console.log('success')
     }
 }

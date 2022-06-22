@@ -17,7 +17,6 @@
 
             <section class="destination">
                 <form class="user-form" novalidate="novalidate">
-                    <h3 id="msg"></h3>
                     <label for="city">Enter Destination</label>
                     <input type="text" id="city-name" placeholder="Enter City" required>
                     </br>
@@ -28,14 +27,16 @@
                     <label for="date">Arrival Date</label>
                     <input type="date" name="date" id="arrival-date" min="2021-09-01" required>
                     </br>
+                    <h3 id="msg"></h3>
+                    </br>
                     <button class="form-submit" type="submit">Submit</button>
                 </form>
             </section>
 
             <section class="results">
                 <h2>Destination Details</h2>
-                <p id="destination-city">My trip: </p>
-                <p id="trip-dates">From: </p>
+                <p id="destination-city"></p>
+                <p id="trip-dates"></p>
                 <p id="forecast">Current Forecast: ⛅️ 75°F</p>
             </section>
 
