@@ -1,5 +1,6 @@
 const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const WorkboxPlugin = require('workbox-webpack-plugin');
 
 module.exports = {
     mode: 'development',
@@ -50,6 +51,7 @@ module.exports = {
             title: 'Travel App',
             filename: 'index.html',
             template: 'src/views/template.html'
-        })
+        }),
+        new WorkboxPlugin.GenerateSW()
     ]
 }
