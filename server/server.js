@@ -45,7 +45,7 @@ function addData(req, res) {
 
 // Setup Server
 
-const port = 8000;
+const port = 8080;
 const server = app.listen(port, listening)
 function listening() {
     console.log(`Server running on port: ${port}`)

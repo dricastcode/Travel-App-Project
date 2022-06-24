@@ -48,7 +48,7 @@ module.exports = {
     },
     plugins: [
         new HtmlWebpackPlugin({
-            title: 'Travel App',
+            title: 'Travel Log App',
             filename: 'index.html',
             template: 'src/views/template.html'
         }),
