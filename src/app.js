@@ -1,4 +1,3 @@
-//Testing commit to GitHub
 
 const userForm = document.querySelector('.user-form')
 const cityName = document.getElementById('city-name')
@@ -17,17 +16,25 @@ function onSubmit(e) {
         setTimeout(() => msg.remove(), 2000)
         clearTimeout(onSubmit)
     } else {
-        const destination = document.getElementById('destination-city')
-        const tripDates = document.getElementById('trip-dates')
+        fetch('http://localhost:8000/trip', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                })
+            .then(response => response.json())
+            .then(data => {
+                console.log(data)
+                const destination = document.getElementById('destination-city')
+                const tripDates = document.getElementById('trip-dates')
+                destination.innerHTML = `My trip: data.city-name`
+                tripDates.innerHTML = `From: ${departure.value} - ${arrival.value}`
 
-        destination.innerHTML = `My trip: ${cityName.value}`
-        tripDates.innerHTML = `From: ${departure.value} - ${arrival.value}`
-
-        cityName.value = ''
-        departure.value = ''
-        arrival.value = ''
-        
-        
-        console.log('success')
+                cityName.value = ''
+                departure.value = ''
+                arrival.value = ''
+        })
     }
 }
+
+export { onSubmit }

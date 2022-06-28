@@ -1,8 +1,11 @@
 // Setup empty JS object to act as endpoint for all routes
-const appData = {};
+import('node-fetch')
+
+// DOTENV Require for environment
+const dotenv = require('dotenv');
+dotenv.config();
 
 // Require Express to run server and routes
-
 const express = require('express');
 const bodyParser = require('body-parser');
 
@@ -21,32 +24,44 @@ const {
     json
 } = require('body-parser');
 // Initialize the main project folder
-app.use(express.static('website'));
+app.use(express.static('dist'));
 
-app.get('allData', sendData);
+// app.listen(8000, function () {
+//     console.log('Example app listening on port 8000!');
+// })
 
-function sendData(req, res) {
-    res.send(appData);
-}
+app.get('/', function (req, res) {
+    res.sendFile('dist/index.html')
+})
 
-app.post('/addData', addData);
+app.post('/trip', function (req, res) {
+    const geoNameData = `https://api.geonames.org/searchJSON?q=${req.body.city}&maxRows=1&username=${process.env.GEONAMES_USERNAME}`;
+    // const city = req.body.city;
+    const date = req.body.date;
 
-function addData(req, res) {
-    let data = req.body;
-    console.log('Server data', data);
-    if (data) {
-        projectData.temp = data.temp;
-        projectData.date = data.date;
-        projectData.city = data.name;
-        projectData.feel = data.feelings;
-    }
-    res.send(addData);
-}
+    fetch(geoNameData, {
+        method: 'POST',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        }
+    }) .then((response) => {
+        return response.json()
+        }) .then((data) => {
+            res.send({
+                city: data.geonames[0].name,
+                lat: data.geonames[0].lat,
+                lng: data.geonames[0].lng,
+            })
+        })
+        console.log(data);
+    })
 
 // Setup Server
 
-const port = 8080;
+const port = 8000;
 const server = app.listen(port, listening)
 function listening() {
     console.log(`Server running on port: ${port}`)
 }
+console.log(`Your API key is ${process.env.GEONAMES_USERNAME}`)
