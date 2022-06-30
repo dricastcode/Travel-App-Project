@@ -33,11 +33,11 @@ app.use(express.static('dist'));
 app.get('/', function (req, res) {
     res.sendFile('dist/index.html')
 })
+// const date = req.body.date;
 
 app.post('/trip', function (req, res) {
-    const geoNameData = `https://api.geonames.org/searchJSON?q=${req.body.city}&maxRows=1&username=${process.env.GEONAMES_USERNAME}`;
-    // const city = req.body.city;
-    const date = req.body.date;
+    const city = req.body.city;
+    const geoNameData = `https://api.geonames.org/searchJSON?q=${city}&maxRows=1&username=${process.env.GEONAMES_USERNAME}`;
 
     fetch(geoNameData, {
         method: 'POST',
@@ -49,12 +49,12 @@ app.post('/trip', function (req, res) {
         return response.json()
         }) .then((data) => {
             res.send({
-                city: data.geonames[0].name,
-                lat: data.geonames[0].lat,
-                lng: data.geonames[0].lng,
+                city: data.geonames.name,
+                lat: data.geonames.lat,
+                lng: data.geonames.lng,
             })
+            console.log(data);
         })
-        console.log(data);
     })
 
 // Setup Server

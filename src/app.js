@@ -16,23 +16,27 @@ function onSubmit(e) {
         setTimeout(() => msg.remove(), 2000)
         clearTimeout(onSubmit)
     } else {
-        fetch('http://localhost:8000/trip', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                })
-            .then(response => response.json())
-            .then(data => {
-                console.log(data)
-                const destination = document.getElementById('destination-city')
-                const tripDates = document.getElementById('trip-dates')
-                destination.innerHTML = `My trip: data.city-name`
-                tripDates.innerHTML = `From: ${departure.value} - ${arrival.value}`
-
+        fetch('/trip', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                city: cityName
+            })
+                // const destination = document.getElementById('destination-city')
+                // const tripDates = document.getElementById('trip-dates')
+                .then(res => res.json())
+                .then(data => {
+                document.getElementById('destination-city').innerHTML = 'My trip:' + data.city
+                document.getElementById('trip-dates').innerHTML = `From: ${departure.value} - ${arrival.value}`
+                
+                console.log(data);
+                
                 cityName.value = ''
                 departure.value = ''
                 arrival.value = ''
+                })
         })
     }
 }
