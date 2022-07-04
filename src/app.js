@@ -16,29 +16,32 @@ function onSubmit(e) {
         setTimeout(() => msg.remove(), 2000)
         clearTimeout(onSubmit)
     } else {
-        fetch('/trip', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
+        async function getData(data) {
+            const response = await fetch('http://localhost:8000/trip', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
             },
-            body: JSON.stringify({
-                city: cityName
+                body: JSON.stringify(data),
+                mode: 'cors',
+                credentials: 'same-origin'
             })
+            return response.json()
+            document.getElementById('destination-city').innerHTML = `My trip: ${data.city}`
+            document.getElementById('trip-dates').innerHTML = `From: ${departure.value} - ${arrival.value}`
+            
+            console.log(data);
+        }
+        
                 // const destination = document.getElementById('destination-city')
                 // const tripDates = document.getElementById('trip-dates')
-                .then(res => res.json())
-                .then(data => {
-                document.getElementById('destination-city').innerHTML = 'My trip:' + data.city
-                document.getElementById('trip-dates').innerHTML = `From: ${departure.value} - ${arrival.value}`
-                
-                console.log(data);
+                // .then(res => res.json())
+                // .then(data => {
                 
                 cityName.value = ''
                 departure.value = ''
                 arrival.value = ''
-                })
-        })
+        }
     }
-}
 
 export { onSubmit }
