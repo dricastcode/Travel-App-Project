@@ -24,6 +24,7 @@
     "workbox-webpack-plugin": "^6.5.3"
   },
   "scripts": {
+    "start": "node ./server/server.js",
     "build": "webpack",
     "dev": "webpack serve"
   }

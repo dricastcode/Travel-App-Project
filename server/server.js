@@ -36,49 +36,29 @@ app.get('/', function(req, res) {
 })
 // const date = req.body.date;
 
+// let tripDetails = {}
+
 app.post('/trip', async (req, res) => {
-    let geoNameData = ''
-    
     const cityName = req.body.city
     const apiKey = process.env.GEONAMES_USERNAME;
     const geoName = `http://api.geonames.org/searchJSON?q=${cityName}&maxRows=1&username=${apiKey}`
-
-    await (fetch(encodeURI(geoName)) 
-        .then(response => response.json())
-        .then(data => geoNameData = {
-            city: data.geonames[0].name,
-            lat: data.geonames[0].lat,
-            lng: data.geonames[0].lng
-        })
-        .catch(err => {
-            console.log(err)
-        }))
-        res.send(geoNameData)
-        console.log(geoName);
-        console.log(cityName);
-    }) 
     
-    // const city = req.body.city;
-    // const geoNameData = `https://api.geonames.org/searchJSON?q=${city}&maxRows=1&username=${process.env.GEONAMES_USERNAME}`;
+    await (fetch(encodeURI(geoName)) 
+    .then(response => response.json())
+    .then(data => res.send( {
+        city: data.geonames[0].name,
+        lat: data.geonames[0].lat,
+        lng: data.geonames[0].lng
+    }))
+    .catch(err => {
+        console.log(err)
+    }))
+    console.log(geoName);
+    console.log(cityName);
+}) 
 
-    // fetch(geoNameData, {
-    //     method: 'POST',
-    //     headers: {
-    //         'Accept': 'application/json',
-    //         'Content-Type': 'application/json'
-    //     }
-    // }) .then((response) => {
-    //     return response.json()
-    //     }) .then((data) => {
-    //         res.send({
-    //             city: data.geonames.name,
-    //             lat: data.geonames.lat,
-    //             lng: data.geonames.lng,
-    //         })
-    //         console.log(data);
-    //     })
-    // })
 
+// console.log(cityName);
 // Setup Server
 
 const port = 8000;

@@ -8,7 +8,7 @@ const msg = document.getElementById('msg')
 
 userForm.addEventListener('submit', onSubmit)
 
-function onSubmit(e) {
+async function onSubmit(e) {
     e.preventDefault()
 
     if(cityName.value === '' || departure.value === '' || arrival === '') {
@@ -17,48 +17,36 @@ function onSubmit(e) {
         clearTimeout(onSubmit)
     } else {
         async function getData() {
-            let city = cityName.value
-
-            fetch('http://localhost:8000/trip')
-            .then((response) => {
-                return response.json()
-            }) .then((result) => {
-                console.log(result)
-                result.main.temp
-            })
+            const destination = document.getElementById('city')
+            const tripDates = document.getElementById('trip-dates')
+            const cityTrip = document.getElementById('destination-city')
             
-        //     const response = await fetch('http://localhost:8000/trip', {
-        //         method: 'POST',
-        //         headers: {
-        //             'Content-Type': 'application/json',
-        //             'Accept': 'application/json'
-        //         },
-        //         body: data
-        //     })
-        //     return response.json()
-        //     } catch(err) {
-        //         console.log(err)
-        //     }
-            
-        // }
-
-        const destination = document.getElementById('destination-city')
-        destination.innerHTML = `My trip: ${getData.city}`
-        const tripDates = document.getElementById('trip-dates')
-        tripDates.innerHTML = `From: ${departure.value} - ${arrival.value}`
-
-        console.log(getData());
-
-     
-                // const destination = document.getElementById('destination-city')
-                // const tripDates = document.getElementById('trip-dates')
-                // .then(res => res.json())
-                // .then(data => {
+            try {
+                console.log(destination.value);
+                const request = await fetch('http://localhost:8000/trip', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ city: destination.value })
+                })
+                console.log(request);
+                const data = await request.json()
+                cityTrip.innerHTML = `My trip: ${data.city}`
+                tripDates.innerHTML = `From: ${departure.value} - ${arrival.value}`
                 
-                cityName.value = ''
-                departure.value = ''
-                arrival.value = ''
+                const lat = data.lat
+                const lng = data.lng
+                console.log(lat, lng);
+            } catch(err) {
+                console.log(err)
             }
-        }}
+            cityName.value = ''
+            departure.value = ''
+            arrival.value = ''
+        }
+        await getData()
+    }
 
-export { onSubmit, getData }
+}
+export { onSubmit }
