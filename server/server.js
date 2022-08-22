@@ -24,42 +24,83 @@ app.use(cors());
 const {
     json
 } = require('body-parser');
+const { response } = require('express');
 // Initialize the main project folder
 app.use(express.static('dist'));
-
-// app.listen(8000, function () {
-//     console.log('Example app listening on port 8000!');
-// })
 
 app.get('/', function(req, res) {
     res.sendFile('dist/index.html')
 })
-// const date = req.body.date;
-
-// let tripDetails = {}
 
 app.post('/trip', async (req, res) => {
+    let tripDetails = ''
+
+    let coordinates = ''
+
     const cityName = req.body.city
-    const apiKey = process.env.GEONAMES_USERNAME;
+    const apiKey = process.env.GEONAMES_USERNAME
     const geoName = `http://api.geonames.org/searchJSON?q=${cityName}&maxRows=1&username=${apiKey}`
     
     await (fetch(encodeURI(geoName)) 
     .then(response => response.json())
-    .then(data => res.send( {
+    .then(data => coordinates = {
         city: data.geonames[0].name,
         lat: data.geonames[0].lat,
         lng: data.geonames[0].lng
-    }))
+    })
     .catch(err => {
         console.log(err)
     }))
+
+    let weatherDetails = ''
+    
+    const date = req.body.date
+    const weatherAPI = process.env.WEATHER_KEY
+    const weatherURL = `https://api.weatherbit.io/v2.0/forecast/daily?lat=${coordinates.lat}&lon=${coordinates.lng}&units=I&key=${weatherAPI}`
+
+    await (fetch(weatherURL)
+    .then(response => response.json())
+    .then(response => weatherDetails = {
+        weather: response.data[0].weather.description,
+        temp: response.data[0].temp,
+        icon: response.data[0].weather.icon
+    })
+    .catch(err => {
+        console.log(err)
+    }))
+
+    let pictureLocation
+
+    const pixAPI = process.env.PIXABAY_KEY
+    const pixURL = `https://pixabay.com/api/?key=${pixAPI}&q=${coordinates.city}&image_type=photo&per_page=3&category=places&safesearch=true`
+
+    await (fetch(pixURL)
+    .then(response => response.json())
+    .then(response => pictureLocation = {
+        page: response.hits[0].pageURL,
+        photo: response.hits[0].webformatURL
+    })
+    .catch(err => {
+        console.log(err);
+    }))
+
+    tripDetails = { 
+        cityName: coordinates.city,
+        lat: coordinates.lat,
+        lng: coordinates.lng,
+        
+        temp: weatherDetails.temp,
+        weather: weatherDetails.weather,
+        icon: weatherDetails.icon,
+        
+        pageURL: pictureLocation.page,
+        photo: pictureLocation.photo }
+    res.send(tripDetails)
+    
     console.log(geoName);
     console.log(cityName);
-}) 
-
-
-// console.log(cityName);
-// Setup Server
+    console.log(tripDetails);
+})
 
 const port = 8000;
 const server = app.listen(port, listening)
