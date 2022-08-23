@@ -38,7 +38,7 @@ app.post('/trip', async (req, res) => {
     let coordinates = ''
 
     const cityName = req.body.city
-    const apiKey = process.env.GEONAMES_USERNAME
+    const apiKey = 'adrianc1'
     const geoName = `http://api.geonames.org/searchJSON?q=${cityName}&maxRows=1&username=${apiKey}`
     
     await (fetch(encodeURI(geoName)) 
@@ -55,7 +55,7 @@ app.post('/trip', async (req, res) => {
     let weatherDetails = ''
     
     const date = req.body.date
-    const weatherAPI = process.env.WEATHER_KEY
+    const weatherAPI = 'e68a777e1dff4075b40f1e4dce814fbe'
     const weatherURL = `https://api.weatherbit.io/v2.0/forecast/daily?lat=${coordinates.lat}&lon=${coordinates.lng}&units=I&key=${weatherAPI}`
 
     await (fetch(weatherURL)
@@ -68,10 +68,10 @@ app.post('/trip', async (req, res) => {
     .catch(err => {
         console.log(err)
     }))
-
+    
     let pictureLocation
 
-    const pixAPI = process.env.PIXABAY_KEY
+    const pixAPI = '29440154-5815c08b7124649247ab31355'
     const pixURL = `https://pixabay.com/api/?key=${pixAPI}&q=${coordinates.city}&image_type=photo&per_page=3&category=places&orientation=horizontal&safesearch=true`
 
     await (fetch(pixURL)
