@@ -20,9 +20,8 @@ body {
   background: #ddd
     url(https://images.unsplash.com/photo-1616528279874-b3d3b50ab6c7?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1700&q=80)
     no-repeat left center/cover;
-  /* overflow: hidden; */
   padding-top: 10px;
-  padding-bottom: 200px;
+  padding-bottom: 50px;
 
   body::before {
     content: '';
@@ -41,7 +40,7 @@ body {
   }
 
   main {
-    background-color: rgb(255, 255, 255, 0.8);
+    background-color: rgba(255, 255, 255, 0.9);
     width: 800px;
     height: 100vh;
     border-radius: 10px;
@@ -63,7 +62,7 @@ body {
       color: white;
       background-color: red;
       margin-top: 40px;
-      margin-bottom: -20px;
+      margin-bottom: -10px;
     }
   }
 
@@ -74,7 +73,7 @@ body {
   }
 
   form {
-    line-height: 3em;
+    line-height: 2.4em;
   }
 
   button {
@@ -83,20 +82,12 @@ body {
     border: none;
     box-shadow: 0px 2px 7px rgba(0, 0, 0, 0.1);
     padding: 5px;
-
-    button:hover {
-      transform: scale(1.2);
-    }
-
-    button:active {
-      transform: scale(0.9);
-    }
   }
-
-  img {
-    width: 400px;
+  
+  .view-city img {
+    width: 380px;
     border-radius: 10px;
-  }
+  } 
 }
 
 @media (max-width: 650px) {

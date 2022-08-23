@@ -72,7 +72,7 @@ app.post('/trip', async (req, res) => {
     let pictureLocation
 
     const pixAPI = process.env.PIXABAY_KEY
-    const pixURL = `https://pixabay.com/api/?key=${pixAPI}&q=${coordinates.city}&image_type=photo&per_page=3&category=places&safesearch=true`
+    const pixURL = `https://pixabay.com/api/?key=${pixAPI}&q=${coordinates.city}&image_type=photo&per_page=3&category=places&orientation=horizontal&safesearch=true`
 
     await (fetch(pixURL)
     .then(response => response.json())
