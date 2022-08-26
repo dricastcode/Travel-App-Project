@@ -26,9 +26,15 @@
     "workbox-webpack-plugin": "^6.5.3"
   },
   "scripts": {
-    "start": "node ./server/server.js",
+    "start": "node ./server/port.js",
     "build": "webpack",
     "dev": "webpack serve",
     "test": "jest"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "coveragePathIgnorePatterns": [
+      "/node_modules/"
+    ]
   }
 }

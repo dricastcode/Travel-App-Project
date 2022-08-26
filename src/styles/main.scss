@@ -56,7 +56,7 @@ body {
     h2 {
       font-weight: 500;
     }
-    
+
     #msg {
       font-weight: 500;
       color: white;
@@ -83,28 +83,38 @@ body {
     box-shadow: 0px 2px 7px rgba(0, 0, 0, 0.1);
     padding: 5px;
   }
-  
+
   .view-city img {
     width: 380px;
     border-radius: 10px;
-  } 
+  }
 }
 
-@media (max-width: 650px) {
+@media (max-width: 480px) {
   body {
-    font-size: 16px;
+    font-size: 14px;
+    height: 100%;
+    width: 300px;
+  }
+  body::before {
+    width: 50%;
+    height: 100%;
   }
   .container {
-    width: 500px;
-    height: 1000px;
+    width: 50%;
+    height: 100%;
   }
   main {
-    width: 500px;
-    height: 1000px;
+    width: 50%;
+    height: 100%;
+  }
+  .view-city img {
+    width: 150px;
+    border-radius: 5px;
   }
 }
 
-@media (max-height: 700px) {
+@media (max-width: 992px) {
   body {
     font-size: 16px;
   }
@@ -113,5 +123,11 @@ body {
   }
   main {
     height: 700px;
+  }
+}
+
+@media (min-width: 993px) {
+  body {
+    font-size: 16px;
   }
 }

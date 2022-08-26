@@ -102,11 +102,10 @@ app.post('/trip', async (req, res) => {
     console.log(tripDetails);
 })
 
-const port = 8000;
-const server = app.listen(port, listening)
-function listening() {
-    console.log(`Server running on port: ${port}`)
-}
+app.post('/test', async (req, res) => {
+    res.json({ pass: 'pass' })
+})
+
 console.log(`Your API key is ${process.env.GEONAMES_USERNAME}`)
 
 module.exports = app
