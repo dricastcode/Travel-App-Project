@@ -1,7 +1,7 @@
 const getCity = require('../src/mock')
 
-describe('testing function', () => {
-    test('tests submit', () => {
+describe('to define the function being tested', () => {
+    test('function is defined', () => {
         expect(getCity).toBeDefined()
     })
 })
