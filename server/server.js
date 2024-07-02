@@ -55,7 +55,7 @@ app.post('/trip', async (req, res) => {
     let weatherDetails = ''
     
     const date = req.body.date
-    const weatherAPI = 'e68a777e1dff4075b40f1e4dce814fbe'
+    const weatherAPI = '-'
     const weatherURL = `https://api.weatherbit.io/v2.0/forecast/daily?lat=${coordinates.lat}&lon=${coordinates.lng}&units=I&key=${weatherAPI}`
 
     await (fetch(weatherURL)
@@ -71,7 +71,7 @@ app.post('/trip', async (req, res) => {
     
     let pictureLocation
 
-    const pixAPI = '29440154-5815c08b7124649247ab31355'
+    const pixAPI = '---'
     const pixURL = `https://pixabay.com/api/?key=${pixAPI}&q=${coordinates.city}&image_type=photo&per_page=3&category=places&orientation=horizontal&safesearch=true`
 
     await (fetch(pixURL)
