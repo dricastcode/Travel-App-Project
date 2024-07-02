@@ -38,7 +38,7 @@ app.post('/trip', async (req, res) => {
     let coordinates = ''
 
     const cityName = req.body.city
-    const apiKey = 'adrianc1'
+    const apiKey = '-'
     const geoName = `http://api.geonames.org/searchJSON?q=${cityName}&maxRows=1&username=${apiKey}`
     
     await (fetch(encodeURI(geoName)) 
